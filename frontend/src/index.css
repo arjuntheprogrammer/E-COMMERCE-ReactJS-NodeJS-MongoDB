@@ -31,6 +31,7 @@ body {
   align-items: center;
   padding: 0.5rem;
 }
+
 .brand a {
   color: #ffffff;
   font-size: 3rem;
@@ -40,6 +41,7 @@ body {
 .header-links a {
   color: #ffffff;
   text-decoration: none;
+  padding: 1rem;
 }
 .header-links a:hover {
   color: #ff8000;
@@ -106,6 +108,7 @@ a:hover {
 }
 
 /* Sidebar */
+
 .brand button {
   font-size: 3rem;
   padding: 0.5rem;
@@ -125,6 +128,7 @@ a:hover {
 .sidebar.open {
   transform: translateX(0);
 }
+
 .sidebar-close-button {
   border-radius: 50%;
   border: 0.1rem #000000 solid;
@@ -195,6 +199,6 @@ a:hover {
 .button:hover {
   border: 0.1rem #404040 solid;
 }
-.button {
+.button.primary {
   background-color: #f0c040;
 }

@@ -8,10 +8,21 @@
 - npx create-react-app frontend
 - npm install react-router-dom
 - npm i axios
+- npm install redux react-redux
+- npm install redux-thunk
 
 To start the frontend server:
 
 - npm start
+
+### TERMINOLOGIES
+
+1. REDUCER:
+   - Input is State and Action and Output is new Action
+2. PROVIDER:
+3. THUNK:
+   - Middleware for redux.
+   - Allows to run async operations in action in redux.
 
 ---
 

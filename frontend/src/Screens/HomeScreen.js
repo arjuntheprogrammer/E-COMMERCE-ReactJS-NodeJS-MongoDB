@@ -1,26 +1,39 @@
-import React, { useEffect, useState } from "react";
-
+import React, {
+  useEffect,
+  //  useState
+} from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { listProducts } from "../actions/productActions";
 
 function HomeScreen(props) {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
+
+  const productList = useSelector((state) => state.productList);
+  const { products, loading, error } = productList;
+  const dispatch = useDispatch();
 
   // Component Did Mount
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get("/api/products");
-      setProducts(data);
-    };
-    fetchData();
+    // const fetchData = async () => {
+    //   const { data } = await axios.get("/api/products");
+    //   setProducts(data);
+    // };
+    // fetchData();
+    dispatch(listProducts());
+
     return () => {
       // cleanup;
     };
   }, []);
 
-  return (
+  return loading ? (
+    <div>Loading...</div>
+  ) : error ? (
+    <div>{error}</div>
+  ) : (
     <ul className="products">
-      {" "}
       {products.map((product) => (
         <li key={product._id}>
           <div className="product">
@@ -32,17 +45,14 @@ function HomeScreen(props) {
               />
             </Link>{" "}
             <Link to={"/product/" + product._id}> {product.name} </Link>{" "}
-            <div className="product-name">
-              {" "}
-              {/* <a href="product.html">{product.name}</a> */}{" "}
-            </div>{" "}
+            <div className="product-name"></div>{" "}
             <div className="product-brand"> {product.brand} </div>{" "}
             <div className="product-price"> {product.price} </div>{" "}
             <div className="product-rating">
               {" "}
               {product.rating}
               Stars({product.numReviews}
-              reviews){" "}
+              Reviews){" "}
             </div>{" "}
           </div>{" "}
         </li>
