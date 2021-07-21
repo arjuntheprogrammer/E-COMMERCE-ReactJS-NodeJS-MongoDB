@@ -7,6 +7,7 @@
 - cd frontend
 - npx create-react-app frontend
 - npm install react-router-dom
+- npm i axios
 
 To start the frontend server:
 
