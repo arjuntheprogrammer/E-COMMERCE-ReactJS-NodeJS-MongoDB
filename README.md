@@ -33,6 +33,8 @@ To start the frontend server:
 - npm init -y
 - npm install express
 - npm install @babel/cli @babel/core @babel/node @babel/preset-env nodemon
+- npm install dotenv
+- npm install mongoose
 
 To start the backend server:
 
@@ -44,6 +46,17 @@ To start the backend server:
 1. npm install @babel/cli @babel/core @babel/node @babel/preset-env nodemon
 2. setup .babelrc
 3. npm start
+
+### Install MONGODB
+
+- brew tap mongodb/brew
+- brew install mongodb-community
+- brew services start mongodb-community
+
+### KILL ALL NODE Services
+
+- killall -9 node
+- pkill -f node
 
 ### To access API results
 
