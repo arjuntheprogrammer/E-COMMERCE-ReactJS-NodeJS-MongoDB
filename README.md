@@ -10,6 +10,7 @@
 - npm i axios
 - npm install redux react-redux
 - npm install redux-thunk
+- npm install js-cookie
 
 To start the frontend server:
 
