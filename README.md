@@ -35,6 +35,8 @@ To start the frontend server:
 - npm install @babel/cli @babel/core @babel/node @babel/preset-env nodemon
 - npm install dotenv
 - npm install mongoose
+- npm install jsonwebtoken
+- npm install body-parser
 
 To start the backend server:
 
