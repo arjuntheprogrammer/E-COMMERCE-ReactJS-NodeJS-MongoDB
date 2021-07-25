@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import { signIn } from "../actions/userActions";
 
 function SigninScreen(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const userSignIn = useSelector((state) => state.userSignIn);
   const { userInfo, loading, error } = userSignIn;
 
   const dispatch = useDispatch();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (userInfo) {

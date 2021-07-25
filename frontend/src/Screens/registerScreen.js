@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import { register } from "../actions/userActions";
 
 function RegisterScreen(props) {
-  const userRegister = useSelector((state) => state.userRegister);
-  const { userInfo, loading, error } = userRegister;
-
-  const dispatch = useDispatch();
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { userInfo, loading, error } = userRegister;
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (userInfo) {
