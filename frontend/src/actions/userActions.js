@@ -1,6 +1,9 @@
 import axios from "axios";
 import Cookie from "js-cookie";
 import {
+  USER_REGISTER_FAIL,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
   USER_SIGNIN_FAIL,
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
@@ -20,4 +23,23 @@ const signIn = (email, password) => async (dispatch) => {
   }
 };
 
-export { signIn };
+const register = (name, email, password) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_REGISTER_REQUEST,
+      payload: { name, email, password },
+    });
+    const { data } = await axios.post("/api/users/register", {
+      name,
+      email,
+      password,
+    });
+    dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
+    Cookie.set("userInfo", JSON.stringify(data));
+  } catch (error) {
+    console.log("error.message", error.message);
+    dispatch({ type: USER_REGISTER_FAIL, payload: error.message });
+  }
+};
+
+export { signIn, register };
