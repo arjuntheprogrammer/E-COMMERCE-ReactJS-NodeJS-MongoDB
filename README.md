@@ -71,3 +71,7 @@ Visit: <http://localhost:5000/api/products/>
 2. <https://github.com/basir/node-react-ecommerce>
 
 ---
+
+### SCREENSHOTS
+
+---
