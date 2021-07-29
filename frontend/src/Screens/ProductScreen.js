@@ -63,10 +63,10 @@ function ProductScreen(props) {
             <ul>
               <li>Price: {product.price}</li>
               <li>
-                Status: {product.countInStock > 0 ? "In Stock" : "Out of Stock"}
+                Status: {product.countInStock > 0 ? "In Stock" : "Unavailable"}
               </li>
               <li>
-                Qty:
+                Qty:{" "}
                 <select
                   value={qty}
                   onChange={(e) => {
@@ -74,7 +74,9 @@ function ProductScreen(props) {
                   }}
                 >
                   {[...Array(product.countInStock).keys()].map((x) => (
-                    <option value={x + 1}>{x + 1}</option>
+                    <option key={x + 1} value={x + 1}>
+                      {x + 1}
+                    </option>
                   ))}
                 </select>
               </li>

@@ -8,6 +8,10 @@ body {
   height: 100vh;
   margin: 0;
 }
+.full-width {
+  width: 100%;
+}
+
 #root {
   height: 100%;
 }
@@ -197,9 +201,6 @@ a:hover {
   cursor: pointer;
   font-size: 1.6rem;
 }
-.full-width {
-  width: 100%;
-}
 
 .button:hover {
   border: 0.1rem #404040 solid;
@@ -228,7 +229,7 @@ a:hover {
 
 .cart-action {
   flex: 1 1 20rem;
-  background-color: #f8f8f8;
+  background-color: #f0f0f0;
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -242,17 +243,14 @@ a:hover {
 .cart-list-container li {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 0.1rem #808080 solid;
+  margin-bottom: 1rem;
+  border-bottom: 0.1rem #c0c0c0 solid;
 }
 
 .cart-list-container li img {
   max-width: 10rem;
   max-height: 10rem;
-  /* margin-bottom: 1rem;  */
-  /* border: 0.1rem #808080 solid; */
 }
 
 .cart-list-container li:first-child {
@@ -349,7 +347,7 @@ tbody > tr:nth-child(odd) {
   justify-content: space-between;
 }
 .placeorder-info {
-  flex: 1 3 60rem;
+  flex: 3 1 60rem;
 }
 .placeorder-action {
   flex: 1 1 20rem;
@@ -377,6 +375,7 @@ tbody > tr:nth-child(odd) {
 .placeorder-action > ul > li {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
 }
 .placeorder-action > ul > li:last-child {
   font-size: 2rem;

@@ -67,7 +67,7 @@ function SigninScreen(props) {
               to={
                 redirect === "/" ? "register" : "register?redirect=" + redirect
               }
-              class="button secondary text-center"
+              className="button secondary text-center"
             >
               Create your amazona account
             </Link>

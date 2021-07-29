@@ -31,7 +31,7 @@ function ShippingScreen(props) {
             <li>
               <label for="address">Address</label>
               <input
-                type="address"
+                type="text"
                 name="address"
                 id="address"
                 onChange={(e) => setAddress(e.target.value)}
@@ -40,7 +40,7 @@ function ShippingScreen(props) {
             <li>
               <label for="city">City</label>
               <input
-                type="city"
+                type="text"
                 name="city"
                 id="city"
                 onChange={(e) => setCity(e.target.value)}
@@ -49,7 +49,7 @@ function ShippingScreen(props) {
             <li>
               <label for="postalCode">Postal Code</label>
               <input
-                type="postalCode"
+                type="text"
                 name="postalCode"
                 id="postalCode"
                 onChange={(e) => setPostalCode(e.target.value)}
@@ -58,7 +58,7 @@ function ShippingScreen(props) {
             <li>
               <label for="country">Country</label>
               <input
-                type="country"
+                type="text"
                 name="country"
                 id="country"
                 onChange={(e) => setCountry(e.target.value)}

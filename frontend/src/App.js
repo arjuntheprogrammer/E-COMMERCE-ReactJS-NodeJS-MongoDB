@@ -40,8 +40,6 @@ function App() {
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
-
-            {/* <Link to="/signin">Sign In</Link> */}
           </div>
         </header>
         <aside className="sidebar">
