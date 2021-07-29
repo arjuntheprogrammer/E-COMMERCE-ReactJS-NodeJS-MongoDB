@@ -14,9 +14,15 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   console.log("GET: /product ID");
   const product = await productModel.findById(req.params.id);
-  res.send({
-    product,
-  });
+  if (product) {
+    res.send({
+      product,
+    });
+  } else {
+    res.status(404).send({
+      msg: "Product Not Found.",
+    });
+  }
 });
 
 router.post("/", isAuth, isAdmin, async (req, res) => {
