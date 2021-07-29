@@ -49,7 +49,7 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
 });
 
 router.put("/:id", isAuth, isAdmin, async (req, res) => {
-  console.log("POST: /products");
+  console.log("PUT: /products");
   console.log("req.body = ", req.body);
   const productId = req.params.id;
   const product = await productModel.findById(productId);
