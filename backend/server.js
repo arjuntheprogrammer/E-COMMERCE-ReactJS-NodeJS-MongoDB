@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import userRoute from "./routes/userRoute";
 import productRoute from "./routes/productRoute";
+import orderRouter from "./routes/orderRouter";
 
 dotenv.config();
 
@@ -23,21 +24,11 @@ app.use(bodyParser.json());
 
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
+app.use("/api/orders", orderRouter);
 
-// app.get("/api/products", (req, res) => {
-//   console.log("GET /api/products");
-//   res.send(data.products);
-// });
-
-// app.get("/api/products/:id", (req, res) => {
-//   console.log("GET /api/products/:id");
-//   const productId = req.params.id;
-//   console.log("productId: ", productId);
-//   const product = data.products.find((x) => x._id === productId);
-//   console.log("product: ", product);
-//   if (product) res.send(product);
-//   else res.status(404).send({ msg: "Product Not Found" });
-// });
+app.get("/", (req, res) => {
+  res.send("Server is ready");
+});
 
 app.listen(5000, () => {
   console.log("Server Started at http://localhost:5000");

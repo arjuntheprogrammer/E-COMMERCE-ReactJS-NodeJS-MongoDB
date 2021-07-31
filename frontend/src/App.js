@@ -1,20 +1,31 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Link, Route } from "react-router-dom";
+
 import "./App.css";
 import CartScreen from "./screens/CartScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ProductsScreen from "./screens/ProductsScreen";
 import ProductScreen from "./screens/ProductScreen";
-import RegisterScreen from "./screens/registerScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 import SigninScreen from "./screens/SigninScreen";
-import ShippingScreen from "./screens/shippingScreen";
-import PaymentScreen from "./screens/paymentScreen";
-import PlaceOrderScreen from "./screens/placeOrderScreen";
+import ShippingAddressScreen from "./screens/ShippingAddressScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+
+import { signout } from "./actions/userActions";
 
 function App() {
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
   const userSignIn = useSelector((state) => state.userSignIn);
   const { userInfo } = userSignIn;
+
+  const dispatch = useDispatch();
+  const signoutHandler = () => {
+    dispatch(signout());
+  };
 
   const openMenu = () => {
     document.querySelector(".sidebar").classList.add("open");
@@ -33,10 +44,26 @@ function App() {
             <Link to="/">amazona</Link>
           </div>
           <div className="header-links">
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart">
+              Cart
+              {cartItems.length > 0 && (
+                <span className="badge">{cartItems.length}</span>
+              )}
+            </Link>
 
             {userInfo ? (
-              <Link to="/profile">{userInfo.name}</Link>
+              <div className="dropdown">
+                <Link to="#">
+                  {userInfo.name} <i className="fa fa-caret-down"></i>{" "}
+                </Link>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="#signout" onClick={signoutHandler}>
+                      Sign Out
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
@@ -62,7 +89,7 @@ function App() {
           <div className="content">
             <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/payment" component={PaymentScreen} />
-            <Route path="/shipping" component={ShippingScreen} />
+            <Route path="/shipping" component={ShippingAddressScreen} />
             <Route path="/products" component={ProductsScreen} />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" component={CartScreen} />

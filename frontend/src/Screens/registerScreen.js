@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { register } from "../actions/userActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 
 function RegisterScreen(props) {
   const [name, setName] = useState("");
@@ -21,14 +23,15 @@ function RegisterScreen(props) {
     if (userInfo) {
       props.history.push(redirect);
     }
-    return () => {
-      // cleanup
-    };
-  }, [userInfo]);
+  }, [props.history, redirect, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(register(name, email, password));
+    if (password !== rePassword) {
+      alert("Password and confirm password are not match");
+    } else {
+      dispatch(register(name, email, password));
+    }
   };
 
   return (
@@ -39,8 +42,8 @@ function RegisterScreen(props) {
             <h2>Create Account</h2>
           </li>
           <li>
-            {loading && <div>Loading...</div>}
-            {error && <div>{error}...</div>}
+            {loading && <LoadingBox></LoadingBox>}
+            {error && <MessageBox variant="danger">{error}</MessageBox>}
           </li>
           <li>
             <label for="name">Name</label>

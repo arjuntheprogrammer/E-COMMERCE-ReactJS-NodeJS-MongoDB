@@ -37,6 +37,7 @@ To start the frontend server:
 - npm install mongoose
 - npm install jsonwebtoken
 - npm install body-parser
+- npm install --save express-async-handler
 
 To start the backend server:
 

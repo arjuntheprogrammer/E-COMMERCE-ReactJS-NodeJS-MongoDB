@@ -4,9 +4,10 @@ import {
   CART_SAVE_SHIPPING,
   REMOVE_FROM_CART,
 } from "../constants/cartConstants";
+import { CART_EMPTY } from "../constants/orderConstants";
 
 function cartReducer(
-  state = { cartItems: [], shipping: {}, payment: {} },
+  state = { cartItems: [], shippingAddress: {}, payment: {} },
   action
 ) {
   switch (action.type) {
@@ -30,7 +31,7 @@ function cartReducer(
     case CART_SAVE_SHIPPING:
       return {
         ...state,
-        shipping: action.payload,
+        shippingAddress: action.payload,
       };
 
     case CART_SAVE_PAYMENT:
@@ -38,6 +39,9 @@ function cartReducer(
         ...state,
         payment: action.payload,
       };
+
+    case CART_EMPTY:
+      return { ...state, cartItems: [] };
 
     default:
       return state;

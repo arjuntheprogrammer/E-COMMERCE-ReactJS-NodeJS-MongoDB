@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 import { useSelector, useDispatch } from "react-redux";
 import { listProducts } from "../actions/productActions";
 
 function HomeScreen(props) {
+  const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(listProducts());
@@ -14,12 +16,12 @@ function HomeScreen(props) {
     return () => {
       // cleanup;
     };
-  }, []);
+  }, [dispatch]);
 
   return loading ? (
-    <div>Loading...</div>
+    <LoadingBox></LoadingBox>
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <ul className="products">
       {products.map((product) => (

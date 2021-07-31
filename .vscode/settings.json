@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["Amazona", "createadmin", "placeorder", "signin"],
+  "cSpell.words": ["Amazona", "createadmin", "placeorder", "signin", "signout"],
   "git.ignoreLimitWarning": true,
   "files.associations": {
     "*.js": "javascriptreact"

@@ -1,21 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { saveShipping } from "../actions/cartActions";
 import CheckoutSteps from "../components/CheckoutSteps";
 
 function ShippingScreen(props) {
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
+
+  if (!userInfo) {
+    props.history.push("/signin");
+  }
+
+  const cart = useSelector((state) => state.cart);
+  const { shippingAddress } = cart;
+
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState("");
+  const [country, setCountry] = useState("");
 
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveShipping({ address, city, postalCode, country }));
-    props.history.push("payment");
+    props.history.push("/payment");
   };
 
   return (

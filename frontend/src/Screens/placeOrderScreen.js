@@ -1,31 +1,46 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { createOrder } from "../actions/orderActions";
 import CheckoutSteps from "../components/CheckoutSteps";
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
+
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 
 function PlaceOrderScreen(props) {
   const cart = useSelector((state) => state.cart);
 
-  const { cartItems, shipping, payment } = cart;
-  if (!shipping.address) {
+  if (!cart.shippingAddress.address) {
     props.history.push("/shipping");
-  } else if (!payment.paymentMethod) {
+  } else if (!cart.payment) {
     props.location.push("/payment");
   }
 
-  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
-  const shippingPrice = itemsPrice > 100 ? 0 : 10;
-  const taxPrice = 0.15 * itemsPrice;
-  const totalPrice = itemsPrice + shippingPrice + taxPrice;
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, success, error, order } = orderCreate;
+
+  const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
+  cart.itemsPrice = toPrice(
+    cart.cartItems.reduce((a, c) => a + c.price * c.qty, 0)
+  );
+  cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
+  cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
+  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+
+  const dispatch = useDispatch();
 
   const placeOrderHandler = () => {
     // crete an order
+    dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   };
+
   useEffect(() => {
-    return () => {
-      //   cleanup;
-    };
-  }, []);
+    if (success) {
+      props.history.push(`/order/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
+    }
+  }, [dispatch, order, props.history, success]);
 
   return (
     <div>
@@ -35,8 +50,9 @@ function PlaceOrderScreen(props) {
         <div className="placeorder-info">
           <div>
             <h3>Shipping</h3>
-            {cart.shipping.address}, {cart.shipping.city},
-            {cart.shipping.postalCode}, {cart.shipping.country},
+            <strong>Address: </strong> {cart.shippingAddress.address},
+            {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
+            {cart.shippingAddress.country}
           </div>
 
           <div>
@@ -46,10 +62,10 @@ function PlaceOrderScreen(props) {
 
           <div>
             <ul className="cart-list-container">
-              {cartItems.length === 0 ? (
+              {cart.cartItems.length === 0 ? (
                 <div>Cart is empty</div>
               ) : (
-                cartItems.map((item) => (
+                cart.cartItems.map((item) => (
                   <li>
                     <div className="cart-image">
                       <img src={item.image} alt="product-img" />
@@ -84,20 +100,22 @@ function PlaceOrderScreen(props) {
             </li>
             <li>
               <div>Items</div>
-              <div>${itemsPrice}</div>
+              <div>${cart.itemsPrice}</div>
             </li>
             <li>
               <div>Shipping</div>
-              <div>${shippingPrice}</div>
+              <div>${cart.shippingPrice}</div>
             </li>
             <li>
               <div>Tax</div>
-              <div>${taxPrice}</div>
+              <div>${cart.taxPrice}</div>
             </li>
             <li>
               <div>Order Total</div>
-              <div>${totalPrice}</div>
+              <div>${cart.totalPrice}</div>
             </li>
+            {loading && <LoadingBox></LoadingBox>}
+            {error && <MessageBox variant="danger">{error}</MessageBox>}
           </ul>
         </div>
       </div>

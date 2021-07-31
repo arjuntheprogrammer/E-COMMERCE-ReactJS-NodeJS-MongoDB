@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { detailsProduct } from "../actions/productActions";
-// import data from "../data";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import Rating from "../components/Rating";
 
 function ProductScreen(props) {
   // console.log(props.match.params.id);
@@ -32,9 +34,9 @@ function ProductScreen(props) {
       </div>
 
       {loading ? (
-        <div>Loading...</div>
+        <LoadingBox></LoadingBox>
       ) : error ? (
-        <div>{error}</div>
+        <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <div className="details">
           <div className="details-image">
@@ -46,9 +48,14 @@ function ProductScreen(props) {
               <li>
                 <h4>{product.name}</h4>
               </li>
+
               <li>
-                {product.rating} Stars ({product.numReviews} Reviews)
+                <Rating
+                  rating={product.rating}
+                  numReviews={product.numReviews}
+                ></Rating>
               </li>
+
               <li>
                 Price: <b>Rs. {product.price}</b>
               </li>

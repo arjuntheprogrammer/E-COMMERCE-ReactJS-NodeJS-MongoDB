@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../actions/cartActions";
 import { Link } from "react-router-dom";
+import MessageBox from "../components/MessageBox";
 
 function CartScreen(props) {
   const cart = useSelector((state) => state.cart);
@@ -19,7 +20,7 @@ function CartScreen(props) {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
-  }, []);
+  }, [dispatch, productId, qty]);
 
   const checkoutHandler = () => {
     props.history.push("/signin?redirect=shipping");
@@ -34,7 +35,9 @@ function CartScreen(props) {
           </li>
 
           {cartItems.length === 0 ? (
-            <div>Cart is empty</div>
+            <MessageBox>
+              Cart is empty. <Link to="/">Go Shopping</Link>
+            </MessageBox>
           ) : (
             cartItems.map((item) => (
               <li>
