@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+import axios from "axios";
+import { PayPalButton } from "react-paypal-button-v2";
+
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { detailsOrder } from "../actions/orderActions";
@@ -8,6 +11,7 @@ import MessageBox from "../components/MessageBox";
 
 function OrderScreen(props) {
   const orderId = props.match.params.id;
+  const [sdkReady, setSdkReady] = useState(false);
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
@@ -15,8 +19,38 @@ function OrderScreen(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(detailsOrder(orderId));
-  }, [dispatch, orderId]);
+    const addPayPalScript = async () => {
+      const { data } = await axios.get("/api/config/paypal");
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
+
+    console.log("*** order = ", order);
+    // if (order) {
+    // if (!order._id) {
+    if (!order) {
+      dispatch(detailsOrder(orderId));
+    } else {
+      if (!order.isPaid) {
+        if (!window.paypal) {
+          addPayPalScript();
+        } else {
+          setSdkReady(true);
+        }
+      }
+    }
+    // }
+  }, [dispatch, order, orderId, sdkReady]);
+
+  const successPaymentHandler = () => {
+    // TODO: dispatch pay order
+  };
 
   return loading ? (
     <LoadingBox></LoadingBox>
@@ -105,19 +139,19 @@ function OrderScreen(props) {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>${order.itemsPrice.toFixed(2)}</div>
+                  <div>Rs.{order.itemsPrice.toFixed(2)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
-                  <div>${order.shippingPrice.toFixed(2)}</div>
+                  <div>Rs.{order.shippingPrice.toFixed(2)}</div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Tax</div>
-                  <div>${order.taxPrice.toFixed(2)}</div>
+                  <div>Rs.{order.taxPrice.toFixed(2)}</div>
                 </div>
               </li>
               <li>
@@ -126,10 +160,22 @@ function OrderScreen(props) {
                     <strong>Order Total</strong>
                   </div>
                   <div>
-                    <strong>${order.totalPrice.toFixed(2)}</strong>
+                    <strong>Rs.{order.totalPrice.toFixed(2)}</strong>
                   </div>
                 </div>
               </li>
+              {!order.isPaid && (
+                <li>
+                  {!sdkReady ? (
+                    <LoadingBox></LoadingBox>
+                  ) : (
+                    <PayPalButton
+                      amount={order.totalPrice}
+                      onSuccess={successPaymentHandler}
+                    ></PayPalButton>
+                  )}
+                </li>
+              )}
             </ul>
           </div>
         </div>

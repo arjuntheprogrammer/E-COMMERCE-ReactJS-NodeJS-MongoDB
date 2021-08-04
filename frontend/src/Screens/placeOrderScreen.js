@@ -100,19 +100,19 @@ function PlaceOrderScreen(props) {
             </li>
             <li>
               <div>Items</div>
-              <div>${cart.itemsPrice}</div>
+              <div>Rs.{cart.itemsPrice}</div>
             </li>
             <li>
               <div>Shipping</div>
-              <div>${cart.shippingPrice}</div>
+              <div>Rs.{cart.shippingPrice}</div>
             </li>
             <li>
               <div>Tax</div>
-              <div>${cart.taxPrice}</div>
+              <div>Rs.{cart.taxPrice}</div>
             </li>
             <li>
               <div>Order Total</div>
-              <div>${cart.totalPrice}</div>
+              <div>Rs.{cart.totalPrice}</div>
             </li>
             {loading && <LoadingBox></LoadingBox>}
             {error && <MessageBox variant="danger">{error}</MessageBox>}

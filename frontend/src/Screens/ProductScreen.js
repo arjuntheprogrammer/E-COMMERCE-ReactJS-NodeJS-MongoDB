@@ -21,7 +21,7 @@ function ProductScreen(props) {
     return () => {
       // cleanup
     };
-  }, []);
+  }, [dispatch, props]);
 
   const handleAddToCart = () => {
     props.history.push("/cart/" + props.match.params.id + "?qty=" + qty);

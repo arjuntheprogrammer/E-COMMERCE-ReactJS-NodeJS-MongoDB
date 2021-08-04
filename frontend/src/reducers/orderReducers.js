@@ -27,7 +27,7 @@ function OrderCreateReducer(state = {}, action) {
   }
 }
 
-function OrderDetailsReducer(state = { loading: true, order: {} }, action) {
+function OrderDetailsReducer(state = { loading: true }, action) {
   switch (action.type) {
     case ORDER_DETAILS_REQUEST:
       return { loading: true };

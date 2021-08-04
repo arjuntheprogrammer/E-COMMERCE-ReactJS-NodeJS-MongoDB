@@ -11,6 +11,7 @@
 - npm install redux react-redux
 - npm install redux-thunk
 - npm install js-cookie
+- npm install react-paypal-button-v2
 
 To start the frontend server:
 
