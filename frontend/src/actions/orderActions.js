@@ -6,6 +6,9 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_DETAILS_FAIL,
+  ORDER_DETAILS_REQUEST,
+  ORDER_DETAILS_SUCCESS,
 } from "../constants/orderConstants";
 
 const createOrder = (order) => async (dispatch, getState) => {
@@ -34,11 +37,35 @@ const createOrder = (order) => async (dispatch, getState) => {
     dispatch({
       type: ORDER_CREATE_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
+        error.response && error.response.data.msg
+          ? error.response.data.msg
           : error.message,
     });
   }
 };
 
-export { createOrder };
+const detailsOrder = (orderId) => async (dispatch, getState) => {
+  try {
+    const {
+      userSignIn: { userInfo },
+    } = getState();
+
+    dispatch({ type: ORDER_DETAILS_REQUEST, payload: orderId });
+    const { data } = await axios.get(`/api/orders/${orderId}`, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+
+    dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.message && error.response.data.msg
+        ? error.response.data.msg
+        : error.message;
+
+    dispatch({ type: ORDER_DETAILS_FAIL, payload: message });
+  }
+};
+
+export { createOrder, detailsOrder };

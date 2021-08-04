@@ -12,6 +12,7 @@ import SigninScreen from "./Screens/SigninScreen";
 import ShippingAddressScreen from "./Screens/ShippingAddressScreen";
 import PaymentScreen from "./Screens/PaymentScreen";
 import PlaceOrderScreen from "./Screens/PlaceOrderScreen";
+import OrderScreen from "./Screens/OrderScreen";
 
 import { signout } from "./actions/userActions";
 
@@ -87,6 +88,7 @@ function App() {
 
         <main className="main">
           <div className="content">
+            <Route path="/order/:id" component={OrderScreen} />
             <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/payment" component={PaymentScreen} />
             <Route path="/shipping" component={ShippingAddressScreen} />
