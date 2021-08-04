@@ -71,6 +71,7 @@ Visit: <http://localhost:5000/api/products/>
 1. React & Node Tutorial - Full ECommerce in 5 Hours [2020]
    : <https://www.youtube.com/watch?v=Fy9SdZLBTOo>
 2. <https://github.com/basir/node-react-ecommerce>
+3. <https://www.youtube.com/watch?v=TRCDsB9i3bI>
 
 ---
 

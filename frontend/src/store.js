@@ -13,6 +13,7 @@ import { UserRegisterReducer, UserSignInReducer } from "./reducers/userReducer";
 import {
   OrderCreateReducer,
   OrderDetailsReducer,
+  OrderPayReducer,
 } from "./reducers/orderReducers";
 
 const cartItems = Cookie.getJSON("cartItems") || [];
@@ -29,6 +30,7 @@ const initialState = {
 };
 
 const reducer = combineReducers({
+  orderPay: OrderPayReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productSave: productSaveReducer,
