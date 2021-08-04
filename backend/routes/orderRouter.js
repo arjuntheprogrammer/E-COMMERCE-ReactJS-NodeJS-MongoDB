@@ -5,6 +5,15 @@ import { isAuth } from "../utils";
 
 const orderRouter = express.Router();
 
+orderRouter.get(
+  "/mine",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find({ user: req.user._id });
+    res.send(orders);
+  })
+);
+
 orderRouter.post(
   "/",
   isAuth,
@@ -52,6 +61,7 @@ orderRouter.put(
   "/:id/pay",
   isAuth,
   expressAsyncHandler(async (req, res) => {
+    console.log("PUT: /orders/:id/pay");
     const order = await Order.findById(req.params.id);
     if (order) {
       order.isPaid = true;
