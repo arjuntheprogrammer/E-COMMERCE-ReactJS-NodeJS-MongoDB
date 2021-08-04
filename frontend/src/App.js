@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 
 import "./App.css";
-import CartScreen from "./screens/CartScreen";
-import HomeScreen from "./screens/HomeScreen";
-import ProductsScreen from "./screens/ProductsScreen";
-import ProductScreen from "./screens/ProductScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import SigninScreen from "./screens/SigninScreen";
-import ShippingAddressScreen from "./screens/ShippingAddressScreen";
-import PaymentScreen from "./screens/PaymentScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import CartScreen from "./Screens/CartScreen";
+import HomeScreen from "./Screens/HomeScreen";
+import ProductsScreen from "./Screens/ProductsScreen";
+import ProductScreen from "./Screens/ProductScreen";
+import RegisterScreen from "./Screens/RegisterScreen";
+import SigninScreen from "./Screens/SigninScreen";
+import ShippingAddressScreen from "./Screens/ShippingAddressScreen";
+import PaymentScreen from "./Screens/PaymentScreen";
+import PlaceOrderScreen from "./Screens/PlaceOrderScreen";
 
 import { signout } from "./actions/userActions";
 
