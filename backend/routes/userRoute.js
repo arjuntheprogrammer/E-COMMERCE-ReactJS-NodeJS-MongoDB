@@ -5,6 +5,7 @@ import { getToken } from "../utils";
 const router = express.Router();
 
 router.post("/signin", async (req, res) => {
+  console.log("User /signin");
   const signinUser = await userModel.findOne({
     email: req.body.email,
     password: req.body.password,
@@ -23,6 +24,7 @@ router.post("/signin", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
+  console.log("User /register");
   try {
     const user = new userModel({
       name: req.body.name,
@@ -47,6 +49,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/createadmin", async (req, res) => {
+  console.log("User /createadmin");
   try {
     const user = new userModel({
       name: "Arjun",
@@ -59,6 +62,16 @@ router.get("/createadmin", async (req, res) => {
     res.send(newUser);
   } catch (error) {
     res.send({ msg: error.message });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  console.log("User /:id");
+  const user = await userModel.findById(req.params.id);
+  if (user) {
+    res.send(user);
+  } else {
+    res.status(404).send({ msg: "User Not Found" });
   }
 });
 

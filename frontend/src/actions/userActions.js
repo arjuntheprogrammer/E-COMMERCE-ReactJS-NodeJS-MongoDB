@@ -1,6 +1,9 @@
 import axios from "axios";
 import Cookie from "js-cookie";
 import {
+  USER_DETAILS_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -60,6 +63,35 @@ export const signout = () => (dispatch) => {
   Cookie.remove("cartItems");
   Cookie.remove("shippingAddress");
   dispatch({ type: USER_SIGNOUT });
+};
+
+export const detailsUser = (userId) => async (dispatch, getState) => {
+  try {
+    const {
+      userSignIn: { userInfo },
+    } = getState();
+
+    dispatch({
+      type: USER_DETAILS_REQUEST,
+      payload: userId,
+    });
+
+    const { data } = await axios.get(`/api/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+
+    dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.msg
+          ? error.response.data.msg
+          : error.message,
+    });
+  }
 };
 
 export { signIn, register };
