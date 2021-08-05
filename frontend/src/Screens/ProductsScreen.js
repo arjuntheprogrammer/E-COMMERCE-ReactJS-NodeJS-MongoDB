@@ -45,7 +45,7 @@ function ProductsScreen(props) {
     return () => {
       // cleanup
     };
-  }, [successSave, successDelete]);
+  }, [dispatch, successSave, successDelete]);
 
   const openModal = (product) => {
     setModalVisible(true);
