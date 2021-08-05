@@ -39,6 +39,7 @@ To start the frontend server:
 - npm install jsonwebtoken
 - npm install body-parser
 - npm install --save express-async-handler
+- npm install bcrypt
 
 To start the backend server:
 
