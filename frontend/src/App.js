@@ -17,6 +17,7 @@ import OrderScreen from "./Screens/OrderScreen";
 import { signout } from "./actions/userActions";
 import OrderHistoryScreen from "./Screens/OrderHistoryScreen";
 import ProfileScreen from "./Screens/ProfileScreen";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -76,6 +77,28 @@ function App() {
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
+
+            {userInfo && userInfo.isAdmin && (
+              <div className="dropdown">
+                <Link to="#admin">
+                  Admin <i className="fa fa-caret-down"></i>
+                </Link>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </li>
+                  <li>
+                    <Link to="/productList">Products</Link>
+                  </li>
+                  <li>
+                    <Link to="/orderList">Orders</Link>
+                  </li>
+                  <li>
+                    <Link to="/userList">Users</Link>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </header>
         <aside className="sidebar">
@@ -96,7 +119,7 @@ function App() {
 
         <main className="main">
           <div className="content">
-            <Route path="/profile" component={ProfileScreen} />
+            <PrivateRoute path="/profile" component={ProfileScreen} />
             <Route path="/orderhistory" component={OrderHistoryScreen} />
             <Route path="/order/:id" component={OrderScreen} />
             <Route path="/placeorder" component={PlaceOrderScreen} />
@@ -111,7 +134,7 @@ function App() {
           </div>
         </main>
 
-        <footer className="footer">All right reserved.</footer>
+        <footer className="row center">All right reserved.</footer>
       </div>
     </BrowserRouter>
   );
